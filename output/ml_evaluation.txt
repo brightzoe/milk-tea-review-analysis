@@ -1,0 +1,20 @@
+sklearn 情感分类器评估结果
+
+accuracy: 1.0000
+precision: 1.0000
+recall: 1.0000
+f1-score: 1.0000
+
+classification report:
+              precision    recall  f1-score   support
+
+          正面       1.00      1.00      1.00        42
+          中性       1.00      1.00      1.00        26
+          负面       1.00      1.00      1.00        36
+
+    accuracy                           1.00       104
+   macro avg       1.00      1.00      1.00       104
+weighted avg       1.00      1.00      1.00       104
+
+confusion matrix:
+[[42, 0, 0], [0, 26, 0], [0, 0, 36]]
