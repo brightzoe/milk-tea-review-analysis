@@ -33,7 +33,7 @@ class SentimentAnalyzer:
         return score
 
     def classify(self, score: float) -> str:
-        if score >= 2:
+        if score >= 1:
             return "正面"
         if score <= -1:
             return "负面"

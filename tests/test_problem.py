@@ -16,6 +16,10 @@ class ProblemAnalyzerTest(unittest.TestCase):
         ProblemAnalyzer().analyze(review)
         self.assertEqual([], review.problem_categories)
 
+    def test_token_based_matching_avoids_substring_false_positive(self):
+        categories = ProblemAnalyzer().match_problem_categories("奶盖很细腻", ["细腻"])
+        self.assertNotIn("口味问题", categories)
+
 
 if __name__ == "__main__":
     unittest.main()

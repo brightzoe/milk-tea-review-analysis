@@ -21,20 +21,22 @@ class SystemController:
 
         lexicon = SentimentLexicon()
         problem_analyzer = ProblemAnalyzer()
+        reviews = ReviewReader().read_csv(input_path)
+        brand_product_words = {review.brand for review in reviews} | {review.product for review in reviews}
         vocabulary = (
             lexicon.sentiment_words()
             | set(lexicon.degree_words)
             | lexicon.negation_words
             | problem_analyzer.vocabulary()
-            | {"珍珠奶茶", "柠檬茶", "奶盖茶", "杨枝甘露", "水果茶", "厚乳拿铁", "甜度合适", "包装好", "服务好", "速度快", "料足"}
+            | brand_product_words
+            | {"甜度合适", "包装好", "服务好", "速度快", "料足"}
         )
 
-        reviews = ReviewReader().read_csv(input_path)
         cleaner = TextCleaner(vocabulary=vocabulary, stopwords_path=Path("data") / "stopwords.txt")
         sentiment_analyzer = SentimentAnalyzer(lexicon)
 
         for review in reviews:
-            review.tokens = cleaner.extract_tokens(review.content)
+            review.tokens = cleaner.extract_tokens_for_review(review.content, [review.brand, review.product])
             sentiment_analyzer.analyze(review)
             problem_analyzer.analyze(review)
 
