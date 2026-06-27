@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+output/test_run/
+output/test_charts_source/
