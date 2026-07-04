@@ -29,6 +29,13 @@ python -m src.main --input data/reviews.csv --output output
 python -m unittest discover tests
 ```
 
+当前测试结果：
+
+```text
+Ran 22 tests
+OK
+```
+
 ## 输出
 
 - `output/analyzed_reviews.csv`
@@ -48,3 +55,25 @@ python -m unittest discover tests
 - 人工扩写的奶茶消费场景样例，用于覆盖珍珠、小料、甜度、冰量、奶盖、外卖包装等奶茶专属问题。
 
 原始 ASAP sample 文件保存在 `data/external/`，最终分析只使用匿名化后的产品体验字段。
+
+## 目录结构
+
+```text
+src/       系统核心代码
+data/      评论数据、停用词和外部样例数据
+tests/     单元测试
+docs/      需求、设计、测试、用户手册和实验报告
+output/    程序运行后的分析结果和图表
+scripts/   样例数据构建脚本
+```
+
+## 项目仓库
+
+GitHub 地址：https://github.com/brightzoe/milk-tea-review-analysis.git
+
+## 提交说明
+
+- `plan/` 目录为实验整理过程中的提示材料，不作为正式作业内容提交。
+- 正式提交建议包含 `src/`、`data/`、`tests/`、`docs/`、`scripts/`、`README.md`、`requirements.txt` 以及必要的 `output/` 运行结果。
+
+

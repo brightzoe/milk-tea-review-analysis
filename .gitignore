@@ -4,3 +4,4 @@ __pycache__/
 .mypy_cache/
 output/test_run/
 output/test_charts_source/
+plan/
