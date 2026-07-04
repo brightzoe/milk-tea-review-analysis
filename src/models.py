@@ -16,7 +16,6 @@ class Review:
     rule_sentiment_score: float = 0.0
     rule_sentiment_label: str = ""
     ml_sentiment_label: str = ""
-    rating_sentiment_label: str = ""
     problem_categories: list[str] = field(default_factory=list)
 
 
