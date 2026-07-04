@@ -12,9 +12,11 @@ class Review:
     rating: int
     label: str
     tokens: list[str] = field(default_factory=list)
+    rating_sentiment_label: str = ""
     rule_sentiment_score: float = 0.0
     rule_sentiment_label: str = ""
     ml_sentiment_label: str = ""
+    rating_sentiment_label: str = ""
     problem_categories: list[str] = field(default_factory=list)
 
 
@@ -39,4 +41,5 @@ class AnalysisSummary:
     keyword_counts: dict[str, int]
     brand_reports: list[BrandReport]
     label_counts: dict[str, int] = field(default_factory=dict)
+    consistency_rates: dict[str, float] = field(default_factory=dict)
     ml_metrics: dict[str, object] = field(default_factory=dict)

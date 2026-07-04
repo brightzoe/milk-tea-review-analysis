@@ -26,6 +26,8 @@ class ReportExporterTest(unittest.TestCase):
             csv_text = csv_file.read_text(encoding="utf-8-sig")
             self.assertIn("rule_sentiment_label", csv_text)
             self.assertIn("ml_sentiment_label", csv_text)
+            self.assertIn("rating_sentiment_label", csv_text)
+            self.assertIn("与人工标签一致率", text)
 
 
 if __name__ == "__main__":

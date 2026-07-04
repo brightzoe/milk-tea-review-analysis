@@ -16,6 +16,7 @@ class ReportExporter:
             "channel",
             "content",
             "rating",
+            "rating_sentiment_label",
             "label",
             "tokens",
             "rule_sentiment_score",
@@ -36,6 +37,7 @@ class ReportExporter:
                         "channel": review.channel,
                         "content": review.content,
                         "rating": review.rating,
+                        "rating_sentiment_label": review.rating_sentiment_label,
                         "label": review.label,
                         "tokens": " ".join(review.tokens),
                         "rule_sentiment_score": review.rule_sentiment_score,
@@ -64,6 +66,25 @@ class ReportExporter:
         ]
         for label in ("正面", "中性", "负面"):
             lines.append(f"| {label} | {summary.label_counts.get(label, 0)} |")
+
+        lines.extend(
+            [
+                "",
+                "### 情感标签说明",
+                "",
+                "- `label` 为人工标注情感类别，用于监督学习训练和评估。",
+                "- `rating_sentiment_label` 由评分映射得到：4-5 分为正面，3 分为中性，1-2 分为负面。",
+                "- 系统最终分析不直接使用 rating 判断情感，而是根据评论文本进行规则分析和机器学习预测，再与人工标签、评分映射结果进行对比。",
+                "",
+                "### 与人工标签一致率",
+                "",
+                "| 对比对象 | 一致率 |",
+                "|---|---:|",
+            ]
+        )
+        for name in ("规则模型", "机器学习模型", "评分映射"):
+            rate = summary.consistency_rates.get(name, 0.0)
+            lines.append(f"| {name} | {rate:.2%} |")
 
         lines.extend(
             [

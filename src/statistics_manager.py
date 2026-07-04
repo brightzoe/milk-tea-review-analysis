@@ -7,10 +7,12 @@ class StatisticsManager:
     LABELS = ("正面", "中性", "负面")
 
     def build_summary(self, reviews: list[Review]) -> AnalysisSummary:
+        self.assign_rating_labels(reviews)
         sentiment_counts = self.count_sentiment_labels(reviews)
         problem_counts = self.count_problem_categories(reviews)
         keyword_counts = self.count_keywords(reviews)
         label_counts = dict(Counter(review.label for review in reviews))
+        consistency_rates = self.calculate_consistency_rates(reviews)
         brand_reports = self.analyze_by_brand(reviews)
         return AnalysisSummary(
             total_count=len(reviews),
@@ -19,7 +21,33 @@ class StatisticsManager:
             keyword_counts=keyword_counts,
             brand_reports=brand_reports,
             label_counts=label_counts,
+            consistency_rates=consistency_rates,
         )
+
+    def assign_rating_labels(self, reviews: list[Review]) -> None:
+        for review in reviews:
+            review.rating_sentiment_label = self.rating_to_label(review.rating)
+
+    def rating_to_label(self, rating: int) -> str:
+        if rating >= 4:
+            return "正面"
+        if rating <= 2:
+            return "负面"
+        return "中性"
+
+    def calculate_consistency_rates(self, reviews: list[Review]) -> dict[str, float]:
+        total = len(reviews)
+        if total == 0:
+            return {"规则模型": 0.0, "机器学习模型": 0.0, "评分映射": 0.0}
+        return {
+            "规则模型": self._match_rate(reviews, "rule_sentiment_label"),
+            "机器学习模型": self._match_rate(reviews, "ml_sentiment_label"),
+            "评分映射": self._match_rate(reviews, "rating_sentiment_label"),
+        }
+
+    def _match_rate(self, reviews: list[Review], field_name: str) -> float:
+        matched = sum(1 for review in reviews if getattr(review, field_name) == review.label)
+        return round(matched / len(reviews), 4)
 
     def count_sentiment_labels(self, reviews: list[Review]) -> dict[str, int]:
         counts = Counter(review.rule_sentiment_label for review in reviews)

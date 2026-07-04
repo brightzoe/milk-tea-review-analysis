@@ -73,6 +73,9 @@ class SystemController:
         for report in summary.brand_reports:
             ratio = report.negative_count / report.total_count if report.total_count else 0
             print(f"  {report.brand}: {ratio:.1%}")
+        print("与人工标签一致率:")
+        for name, rate in summary.consistency_rates.items():
+            print(f"  {name}: {rate:.2%}")
         print(f"输出文件: {output / 'analyzed_reviews.csv'}")
         print(f"输出报告: {output / 'analysis_report.md'}")
         print(f"模型评估: {output / 'ml_evaluation.txt'}")

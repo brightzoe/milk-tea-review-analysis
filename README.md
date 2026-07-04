@@ -8,6 +8,7 @@
 - 使用情感词典、否定词、程度副词进行规则情感分析。
 - 使用 `TF-IDF + LogisticRegression` 训练 sklearn 情感分类器。
 - 识别口味、价格、出餐、服务、包装、配送、产品等问题。
+- 将评分映射标签、规则模型标签、机器学习标签与人工标签进行一致率对比。
 - 生成 CSV、Markdown、图表和机器学习评估结果。
 
 ## 运行
@@ -34,7 +35,7 @@ python -m unittest discover tests
 当前测试结果：
 
 ```text
-Ran 22 tests
+Ran 24 tests
 OK
 ```
 
@@ -78,5 +79,3 @@ GitHub 地址：https://github.com/brightzoe/milk-tea-review-analysis.git
 
 - `plan/` 目录为实验整理过程中的提示材料，不作为正式作业内容提交。
 - 正式提交建议包含 `src/`、`data/`、`tests/`、`docs/`、`scripts/`、`README.md`、`requirements.txt` 以及必要的 `output/` 运行结果。
-
-
