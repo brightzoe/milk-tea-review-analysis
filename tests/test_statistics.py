@@ -8,7 +8,7 @@ class StatisticsManagerTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
-        cls.summary = SystemController().run("data/reviews.csv", cls.tmp.name)
+        cls.summary = SystemController().run("data/reviews.csv", cls.tmp.name, verbose=False)
 
     @classmethod
     def tearDownClass(cls):

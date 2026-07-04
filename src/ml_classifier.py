@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, precision_recall_fscore_support
@@ -64,6 +65,22 @@ class SklearnSentimentClassifier:
             "confusion_matrix": matrix.tolist(),
             "labels": self.LABELS,
         }
+
+    def save_model(self, output_path: str | Path) -> None:
+        """将训练好的 sklearn 模型持久化到文件。"""
+        if not self._trained:
+            raise RuntimeError("模型尚未训练")
+        path = Path(output_path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        joblib.dump(self.model, path)
+
+    def load_model(self, model_path: str | Path) -> None:
+        """从文件加载已保存的 sklearn 模型。"""
+        path = Path(model_path)
+        if not path.exists():
+            raise FileNotFoundError(f"模型文件不存在: {path}")
+        self.model = joblib.load(path)
+        self._trained = True
 
     def save_evaluation(self, metrics: dict[str, object], output_path: str | Path) -> None:
         path = Path(output_path)

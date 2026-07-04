@@ -15,6 +15,8 @@
 ```bash
 pip install -r requirements.txt
 python -m src.main
+# 或直接运行
+python src/main.py
 ```
 
 自定义路径：
@@ -41,6 +43,7 @@ OK
 - `output/analyzed_reviews.csv`
 - `output/analysis_report.md`
 - `output/ml_evaluation.txt`
+- `output/sentiment_model.pkl`
 - `output/charts/sentiment_distribution.png`
 - `output/charts/brand_sentiment_compare.png`
 - `output/charts/problem_ranking.png`

@@ -13,7 +13,7 @@ from .text_cleaner import TextCleaner
 
 
 class SystemController:
-    def run(self, input_path: str | Path, output_dir: str | Path):
+    def run(self, input_path: str | Path, output_dir: str | Path, verbose: bool = True):
         output = Path(output_dir)
         output.mkdir(parents=True, exist_ok=True)
         charts_dir = output / "charts"
@@ -55,8 +55,10 @@ class SystemController:
         exporter.export_csv(reviews, output / "analyzed_reviews.csv")
         exporter.export_markdown(summary, reviews, output / "analysis_report.md")
         ml_classifier.save_evaluation(ml_metrics, output / "ml_evaluation.txt")
+        ml_classifier.save_model(output / "sentiment_model.pkl")
 
-        self._print_console_summary(summary, output)
+        if verbose:
+            self._print_console_summary(summary, output)
         return summary
 
     def _print_console_summary(self, summary, output: Path) -> None:
@@ -74,3 +76,4 @@ class SystemController:
         print(f"输出文件: {output / 'analyzed_reviews.csv'}")
         print(f"输出报告: {output / 'analysis_report.md'}")
         print(f"模型评估: {output / 'ml_evaluation.txt'}")
+        print(f"模型文件: {output / 'sentiment_model.pkl'}")

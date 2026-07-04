@@ -11,12 +11,15 @@ from src.statistics_manager import StatisticsManager
 class ReportExporterTest(unittest.TestCase):
     def test_controller_generates_outputs(self):
         with tempfile.TemporaryDirectory() as tmp:
-            SystemController().run("data/reviews.csv", tmp)
+            SystemController().run("data/reviews.csv", tmp, verbose=False)
             output = Path(tmp)
             report = output / "analysis_report.md"
             csv_file = output / "analyzed_reviews.csv"
+            model_file = output / "sentiment_model.pkl"
             self.assertTrue(report.exists())
             self.assertTrue(csv_file.exists())
+            self.assertTrue(model_file.exists())
+            self.assertGreater(model_file.stat().st_size, 0)
             text = report.read_text(encoding="utf-8")
             self.assertIn("sklearn", text)
             self.assertIn("charts/sentiment_distribution.png", text)
